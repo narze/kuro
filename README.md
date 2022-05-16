@@ -1,12 +1,10 @@
 # Kuro
 
-Credit Roll
+Credit Roll Renderer
 
 ## Setup
 
-```console
 Copy members.csv to `public/members.csv`
-```
 
 ## Commands
 
