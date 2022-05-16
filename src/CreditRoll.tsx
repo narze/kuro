@@ -16,6 +16,16 @@ import {
 import Papa from 'papaparse';
 import './fonts.css';
 
+interface IMember {
+	Member: string;
+	'Link to profile': string;
+	'Current level': string;
+	'Total time on level (months)': string;
+	'Total time as member (months)': string;
+	'Last update': string;
+	'Last update timestamp': string;
+}
+
 // Add custom style to names (case sensitive)
 const customStyles: Record<string, React.CSSProperties> = {
 	becky_style: {fontStyle: 'italic', fontWeight: 'bold'}, // eslint-disable-line
@@ -23,34 +33,39 @@ const customStyles: Record<string, React.CSSProperties> = {
 	BullVPN: {fontWeight: 900},
 };
 
-// Load tier 2 members from /public/t2members.csv (gitignored)
-const csvPath = staticFile(`/t2members.csv`);
+// Load members from /public/members.csv (gitignored)
+const memberCsvPath = staticFile(`/members.csv`);
 
-// Tier 3 members
-const t3members = [
-	'Kittisart Wisedsook',
-	'Ekachai R',
-	'Keychron Thailand',
-	'Sisira Hydrangea Ch.',
-	'lazyningx',
-];
+// Tiers
+const tiers: Record<number, RegExp> = {
+	1: /เลี้ยงกาแฟ/,
+	2: /เลี้ยงข้าว/,
+	3: /ผ่อนบ้าน/,
+};
 
-const t2ParsePromise: Promise<Array<any>> = new Promise((resolve, reject) => {
-	Papa.parse(csvPath, {
+const membersFetch: Promise<Array<IMember>> = new Promise((resolve, reject) => {
+	Papa.parse(memberCsvPath, {
 		download: true,
 		header: true,
 		complete: (result) => {
-			const members = result.data;
-			const t2members = members.filter((m: any) => {
-				if (!m['Current level']) {
-					return false;
-				}
-				return m['Current level'].match(/เลี้ยงกาแฟ/);
-			});
-			resolve(t2members);
+			const members = result.data.filter((m) => {
+				return Boolean((m as IMember)['Current level']);
+			}) as Array<IMember>;
+
+			resolve(members);
 		},
 	});
 });
+
+const getMembersFromTier = (members: Array<IMember>, tier: number) => {
+	if (!(tier in tiers)) {
+		return [];
+	}
+
+	return members.filter((m: IMember) => {
+		return tiers[tier].test(m['Current level']);
+	});
+};
 
 const Members = React.memo(
 	(props: {
@@ -58,11 +73,11 @@ const Members = React.memo(
 		translateY: number;
 		onLoad: () => void;
 	}) => {
-		const [t2members, setT2Members] = useState<Array<any>>([]);
+		const [members, setMembers] = useState<Array<IMember>>([]);
 		const [handle] = useState(() => delayRender());
 
 		const fetchData = useCallback(async () => {
-			setT2Members(await t2ParsePromise);
+			setMembers(await membersFetch);
 			props.onLoad();
 			continueRender(handle);
 		}, [handle, props]);
@@ -111,13 +126,13 @@ const Members = React.memo(
 							fontSize: '64px',
 						}}
 					>
-						{t3members.map((member, idx) => {
+						{getMembersFromTier(members, 3).map((m, idx) => {
 							return (
 								<div
 									key={idx}
-									style={{color: 'white', ...(customStyles[member] ?? {})}}
+									style={{color: 'white', ...(customStyles[m.Member] ?? {})}}
 								>
-									{member}
+									{m.Member}
 								</div>
 							);
 						})}
@@ -137,7 +152,7 @@ const Members = React.memo(
 							fontSize: '40px',
 						}}
 					>
-						{t2members.map((member, idx) => {
+						{getMembersFromTier(members, 2).map((m, idx) => {
 							return (
 								<div
 									key={idx}
@@ -145,10 +160,10 @@ const Members = React.memo(
 										minWidth: '50%',
 										textAlign: 'center',
 										color: 'white',
-										...(customStyles[member.Member] ?? {}),
+										...(customStyles[m.Member] ?? {}),
 									}}
 								>
-									{member.Member}
+									{m.Member}
 								</div>
 							);
 						})}

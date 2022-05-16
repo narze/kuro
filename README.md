@@ -5,7 +5,7 @@ Credit Roll
 ## Setup
 
 ```console
-cp public/t2members.example.csv public/t2members.csv
+Copy members.csv to `public/members.csv`
 ```
 
 ## Commands

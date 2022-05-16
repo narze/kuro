@@ -6,4 +6,4 @@ dist
 # Ignore the output video from Git but not videos you import into src/.
 out
 
-public/t2members.csv
+public/members.csv
