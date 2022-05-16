@@ -16,7 +16,12 @@ import {
 import Papa from 'papaparse';
 import './fonts.css';
 
-// Const t2members = fs.openSync(path.join(__dirname, '../ts2members.csv'), 'r');
+const customStyles: Record<string, React.CSSProperties> = {
+	becky_style: {fontStyle: 'italic', fontWeight: 'bold'},
+	HEARTROCKER: {color: 'red'},
+	BullVPN: {fontWeight: 900},
+};
+
 const csvPath = staticFile(`/t2members.csv`);
 
 const t2ParsePromise: Promise<Array<any>> = new Promise((resolve, reject) => {
@@ -84,9 +89,7 @@ const Members = React.memo(
 				<section>
 					<h2 style={{fontWeight: 100}}>ประธานบอร์ดบริหาร</h2>
 
-					<div
-						style={{fontSize: '160px', fontStyle: 'italic', fontWeight: 'bold'}}
-					>
+					<div style={{fontSize: '160px', ...(customStyles.becky_style ?? {})}}>
 						becky_style
 					</div>
 				</section>
@@ -107,7 +110,10 @@ const Members = React.memo(
 					>
 						{t3members.map((member, idx) => {
 							return (
-								<div key={idx} style={{color: 'white'}}>
+								<div
+									key={idx}
+									style={{color: 'white', ...(customStyles[member] ?? {})}}
+								>
 									{member}
 								</div>
 							);
@@ -132,7 +138,12 @@ const Members = React.memo(
 							return (
 								<div
 									key={idx}
-									style={{minWidth: '50%', textAlign: 'center', color: 'white'}}
+									style={{
+										minWidth: '50%',
+										textAlign: 'center',
+										color: 'white',
+										...(customStyles[member.Member] ?? {}),
+									}}
 								>
 									{member.Member}
 								</div>
@@ -152,12 +163,10 @@ const Members = React.memo(
 export const CreditRoll: React.FC = () => {
 	const ref = useRef<HTMLDivElement>(null);
 	const frame = useCurrentFrame();
-	const {fps, durationInFrames} = useVideoConfig();
+	const {durationInFrames} = useVideoConfig();
 
 	const [height, setHeight] = useState(0);
-	// Const ref = useRef(null)
 
-	// useEffect(() => {
 	function onLoad() {
 		if (ref?.current) {
 			console.log({height: ref.current.scrollHeight});
@@ -165,7 +174,6 @@ export const CreditRoll: React.FC = () => {
 			setHeight(ref.current.scrollHeight);
 		}
 	}
-	// }, [ref]);
 
 	const translateY = ~~interpolate(
 		frame,
@@ -175,13 +183,6 @@ export const CreditRoll: React.FC = () => {
 			extrapolateRight: 'clamp',
 		}
 	);
-
-	// Const scale = spring({
-	// 	fps,
-	// 	from: 0,
-	// 	to: 1,
-	// 	frame,
-	// });
 
 	return (
 		<div style={{fontSize: '2rem', fontFamily: 'Kanit', fontWeight: 100}}>
