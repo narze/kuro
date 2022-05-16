@@ -16,13 +16,24 @@ import {
 import Papa from 'papaparse';
 import './fonts.css';
 
+// Add custom style to names (case sensitive)
 const customStyles: Record<string, React.CSSProperties> = {
-	becky_style: {fontStyle: 'italic', fontWeight: 'bold'},
+	becky_style: {fontStyle: 'italic', fontWeight: 'bold'}, // eslint-disable-line
 	HEARTROCKER: {color: 'red'},
 	BullVPN: {fontWeight: 900},
 };
 
+// Load tier 2 members from /public/t2members.csv (gitignored)
 const csvPath = staticFile(`/t2members.csv`);
+
+// Tier 3 members
+const t3members = [
+	'Kittisart Wisedsook',
+	'Ekachai R',
+	'Keychron Thailand',
+	'Sisira Hydrangea Ch.',
+	'lazyningx',
+];
 
 const t2ParsePromise: Promise<Array<any>> = new Promise((resolve, reject) => {
 	Papa.parse(csvPath, {
@@ -40,14 +51,6 @@ const t2ParsePromise: Promise<Array<any>> = new Promise((resolve, reject) => {
 		},
 	});
 });
-
-const t3members = [
-	'Kittisart Wisedsook',
-	'Ekachai R',
-	'Keychron Thailand',
-	'Sisira Hydrangea Ch.',
-	'lazyningx',
-];
 
 const Members = React.memo(
 	(props: {
@@ -86,7 +89,7 @@ const Members = React.memo(
 					ขอขอบคุณเหล่านายทุน
 				</h1>
 
-				<section>
+				<section id="tier-4">
 					<h2 style={{fontWeight: 100}}>ประธานบอร์ดบริหาร</h2>
 
 					<div style={{fontSize: '160px', ...(customStyles.becky_style ?? {})}}>
@@ -94,7 +97,7 @@ const Members = React.memo(
 					</div>
 				</section>
 
-				<section>
+				<section id="tier-3">
 					<h2 style={{fontWeight: 100}}>ทีมช่วยผ่อนบ้าน</h2>
 
 					<div
@@ -121,7 +124,7 @@ const Members = React.memo(
 					</div>
 				</section>
 
-				<section>
+				<section id="tier-2">
 					<h2 style={{fontWeight: 100}}>ทีมเลี้ยงข้าว</h2>
 
 					<div
@@ -152,7 +155,7 @@ const Members = React.memo(
 					</div>
 				</section>
 
-				<section>
+				<section id="tier-1">
 					<h2 style={{fontWeight: 100}}>และทีมเลี้ยงกาแฟทุกท่าน</h2>
 				</section>
 			</div>

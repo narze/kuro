@@ -7,7 +7,7 @@ export const RemotionVideo: React.FC = () => {
 			<Composition
 				id="CreditRoll"
 				component={CreditRoll}
-				durationInFrames={60 * 60}
+				durationInFrames={60 * 60} // Duration of the whole video
 				fps={60}
 				width={1920}
 				height={1080}
