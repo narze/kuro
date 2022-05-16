@@ -4,7 +4,8 @@ Credit Roll Renderer
 
 ## Setup
 
-Copy members.csv to `public/members.csv`
+- Copy members.csv to `public/members.csv`
+- Edit [custom styles & tier name regex](./src/CreditRoll.tsx#L30-L44)
 
 ## Commands
 
