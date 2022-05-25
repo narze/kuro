@@ -9,7 +9,7 @@ export const RemotionVideo: React.FC = () => {
 				component={CreditRoll}
 				durationInFrames={60 * 60} // Duration of the whole video
 				fps={60}
-				width={1920}
+				width={960}
 				height={1080}
 				defaultProps={{
 					titleText: 'Welcome to Remotion',

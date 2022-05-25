@@ -151,13 +151,13 @@ const Members = React.memo(
 
 					<div
 						style={{
-							width: '70%', // Overall width
+							width: '100%', // Overall width
 							display: 'flex',
 							flexWrap: 'wrap',
-							justifyContent: 'space-between',
+							justifyContent: 'space-evenly', // Use "space-between" / "space-around" / "space-evenly"
 							alignItems: 'center',
 							margin: '0 auto',
-							fontSize: '32px',
+							fontSize: '24px',
 							// BackgroundColor: 'red', // Use for debugging
 						}}
 					>
@@ -166,7 +166,7 @@ const Members = React.memo(
 								<div
 									key={idx}
 									style={{
-										width: '32%', // Width per element
+										width: '30%', // Width per element (26% - 33.33%)
 										textAlign: 'center',
 										textOverflow: 'ellipsis',
 										whiteSpace: 'nowrap',

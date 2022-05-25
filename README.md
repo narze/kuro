@@ -10,6 +10,7 @@ Credit Roll Renderer
 
 - Copy members.csv to `public/members.csv`
 - Edit [custom styles & tier name regex](./src/CreditRoll.tsx#L30-L44)
+- Change [video size](./src/Video.tsx)
 
 ## Commands
 
