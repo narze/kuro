@@ -97,14 +97,14 @@ const Members = React.memo(
 					transform: `translateY(${props.translateY}px)`,
 					display: 'flex',
 					flexDirection: 'column',
-					gap: '10rem',
+					gap: '10rem', // Gap between sections
 				}}
 			>
 				<h1 style={{fontStyle: 'italic', fontWeight: 100}}>
 					ขอขอบคุณเหล่านายทุน
 				</h1>
 
-				<section id="tier-4">
+				<section id="tier-4" style={{marginTop: '200px'}}>
 					<h2 style={{fontWeight: 100}}>ประธานบอร์ดบริหาร</h2>
 
 					<div style={{fontSize: '160px', ...(customStyles.becky_style ?? {})}}>
@@ -112,7 +112,7 @@ const Members = React.memo(
 					</div>
 				</section>
 
-				<section id="tier-3">
+				<section id="tier-3" style={{marginTop: '300px'}}>
 					<h2 style={{fontWeight: 100}}>ทีมช่วยผ่อนบ้าน</h2>
 
 					<div
@@ -139,17 +139,19 @@ const Members = React.memo(
 					</div>
 				</section>
 
-				<section id="tier-2">
+				<section id="tier-2" style={{marginTop: '800px'}}>
 					<h2 style={{fontWeight: 100}}>ทีมเลี้ยงข้าว</h2>
 
 					<div
 						style={{
+							width: '70%', // Overall width
 							display: 'flex',
 							flexWrap: 'wrap',
-							justifyItems: 'center',
-							width: '70%',
+							justifyContent: 'space-between',
+							alignItems: 'center',
 							margin: '0 auto',
-							fontSize: '40px',
+							fontSize: '32px',
+							// BackgroundColor: 'red', // Use for debugging
 						}}
 					>
 						{getMembersFromTier(members, 2).map((m, idx) => {
@@ -157,10 +159,14 @@ const Members = React.memo(
 								<div
 									key={idx}
 									style={{
-										minWidth: '50%',
+										width: '32%', // Width per element
 										textAlign: 'center',
+										textOverflow: 'ellipsis',
+										whiteSpace: 'nowrap',
+										overflow: 'hidden',
 										color: 'white',
 										...(customStyles[m.Member] ?? {}),
+										// BackgroundColor: 'green', // Use for debugging
 									}}
 								>
 									{m.Member}
@@ -170,7 +176,7 @@ const Members = React.memo(
 					</div>
 				</section>
 
-				<section id="tier-1">
+				<section id="tier-1" style={{marginTop: '500px'}}>
 					<h2 style={{fontWeight: 100}}>และทีมเลี้ยงกาแฟทุกท่าน</h2>
 				</section>
 			</div>
@@ -203,7 +209,13 @@ export const CreditRoll: React.FC = () => {
 	);
 
 	return (
-		<div style={{fontSize: '2rem', fontFamily: 'Kanit', fontWeight: 100}}>
+		<div
+			style={{
+				fontSize: '2rem',
+				fontFamily: 'Kanit',
+				fontWeight: 100,
+			}}
+		>
 			{/* eslint-disable-next-line react/jsx-no-bind */}
 			<Members divRef={ref} translateY={translateY} onLoad={onLoad} />
 		</div>
