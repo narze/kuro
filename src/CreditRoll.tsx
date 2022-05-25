@@ -62,8 +62,15 @@ const getMembersFromTier = (members: Array<IMember>, tier: number) => {
 		return [];
 	}
 
-	return members.filter((m: IMember) => {
+	const tierMembers = members.filter((m: IMember) => {
 		return tiers[tier].test(m['Current level']);
+	});
+
+	return tierMembers.sort((a, b) => {
+		return (
+			Number(b['Total time as member (months)']) -
+			Number(a['Total time as member (months)'])
+		);
 	});
 };
 
