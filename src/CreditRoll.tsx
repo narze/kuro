@@ -8,6 +8,7 @@ import React, {
 import {
 	continueRender,
 	delayRender,
+	Img,
 	interpolate,
 	staticFile,
 	useCurrentFrame,
@@ -114,6 +115,11 @@ const Members = React.memo(
 				<section id="tier-4" style={{marginTop: '200px'}}>
 					<h2 style={{fontWeight: 100}}>ประธานบอร์ดบริหาร</h2>
 
+					<Img
+						src={staticFile('images/example.gif')}
+						style={{width: '300px', marginBottom: '32px'}}
+					/>
+
 					<div style={{fontSize: '160px', ...(customStyles.becky_style ?? {})}}>
 						becky_style
 					</div>
@@ -121,6 +127,11 @@ const Members = React.memo(
 
 				<section id="tier-3" style={{marginTop: '300px'}}>
 					<h2 style={{fontWeight: 100}}>ทีมช่วยผ่อนบ้าน</h2>
+
+					<Img
+						src={staticFile('images/example.gif')}
+						style={{width: '200px', marginBottom: '32px'}}
+					/>
 
 					<div
 						style={{
@@ -148,6 +159,11 @@ const Members = React.memo(
 
 				<section id="tier-2" style={{marginTop: '800px'}}>
 					<h2 style={{fontWeight: 100}}>ทีมเลี้ยงข้าว</h2>
+
+					<Img
+						src={staticFile('images/example.gif')}
+						style={{width: '200px', marginBottom: '32px'}}
+					/>
 
 					<div
 						style={{
