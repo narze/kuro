@@ -1,3 +1,4 @@
+import {AbsoluteFill} from 'remotion';
 import React, {
 	RefObject,
 	useCallback,
@@ -232,15 +233,21 @@ export const CreditRoll: React.FC = () => {
 	);
 
 	return (
-		<div
+		<AbsoluteFill
 			style={{
-				fontSize: '2rem',
-				fontFamily: 'Kanit',
-				fontWeight: 100,
+				backgroundColor: '#262626',
 			}}
 		>
-			{/* eslint-disable-next-line react/jsx-no-bind */}
-			<Members divRef={ref} translateY={translateY} onLoad={onLoad} />
-		</div>
+			<div
+				style={{
+					fontSize: '2rem',
+					fontFamily: 'Kanit',
+					fontWeight: 100,
+				}}
+			>
+				{/* eslint-disable-next-line react/jsx-no-bind */}
+				<Members divRef={ref} translateY={translateY} onLoad={onLoad} />
+			</div>
+		</AbsoluteFill>
 	);
 };
